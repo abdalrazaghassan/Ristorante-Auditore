@@ -1,0 +1,32 @@
+body {
+    background: white;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    border: solid black 1px;
+    margin: 5%;
+    border-radius: 20px;
+    padding: 2%;
+    border-style: double;
+    background-color: #d7e8f7;
+}
+
+.ingrediantSection {
+    margin: 5%;
+    padding: 2%;
+    border-style: double;
+    border-radius: 20px;
+    background-color: #d7e8f7;
+    width: 90%;
+    height: 450px;
+}
+
+.ingrediantSection h5 {
+    color: rgb(82, 238, 82);
+    margin: 5px;
+}
