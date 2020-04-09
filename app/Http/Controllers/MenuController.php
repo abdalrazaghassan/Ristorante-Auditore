@@ -29,4 +29,12 @@ class MenuController extends Controller
 
         return redirect('/menu')->with('initData' , $this->initData());
     }
+
+    public function addNotes($id)
+    {
+
+        $item = DB::table('Items')->where('id' , '=' , $id)->get();
+
+        return "<h1>$item</h1>";
+    }
 }
