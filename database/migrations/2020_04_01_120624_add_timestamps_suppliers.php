@@ -13,7 +13,7 @@ class AddTimestampsSuppliers extends Migration
      */
     public function up()
     {
-        Schema::table('suppliers' , function (Blueprint $table){
+        Schema::table('Supplier' , function (Blueprint $table){
             $table->timestamps();
         });
     }

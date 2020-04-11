@@ -108,27 +108,6 @@
 </div>
 
 
-<!--Notes Modal -->
-<div class="modal fade" id="notesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content align-items-center">
-            <div class="modal-header">
-                <h5 class="modal-title" id="notesModalTitle">Add your Notes</h5>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <textarea id="my-textarea" class="form-control" name="" rows="3"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Done!</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <div class="allSections">
     <section class="Dishes offers">
         <h1>Offers</h1>
@@ -157,7 +136,7 @@
                                         <div class="card-body" style="align-items: center;">
                                             <h4>{{$item->name}}</h4>
                                             <hr class="m-0">
-                                            <p class="card-text">{{$item->bio}}</p>
+                                            <textarea id="{{$item->id}}" value="{{$item->bio}}" name="{{$item->id}}" class="card-text"></textarea>
                                             <div class="form-group">
                                                 <label class="form-text">size</label>
                                                 @foreach($initData['SizeItem'] as $sizeItem)
@@ -174,7 +153,7 @@
                                             <hr>
                                             <div class="container">
                                                 <!-- Button trigger NotesModal -->
-                                                <button type="button" class="btn  btn-danger" data-toggle="modal" data-target="#notesModal">Add Notes</button>
+                                                <button type="button" class="btn  btn-danger" onclick="orderNotes({{$item->id}})">Add Notes</button>
                                                 <button type="submit" class="btn btn-group-sm btn-primary">Order</button>
                                             </div>
                                         </div>
@@ -201,7 +180,7 @@
                                 <div class="card-body" style="align-items: center;">
                                     <h4>{{$item->name}}</h4>
                                     <hr class="m-0">
-                                    <p class="card-text">{{$item->bio}}</p>
+                                    <input type="text" value="{{$item->bio}}" name="notesOrder" class="card-text">
                                     <div class="form-group">
                                         <label class="form-text">size</label>
                                         @foreach($initData['SizeItem'] as $sizeItem)
@@ -218,7 +197,7 @@
                                     <hr>
                                     <div class="container">
                                         <!-- Button trigger NotesModal -->
-                                        <button type="button" class="btn  btn-danger" data-toggle="modal" data-target="#notesModal">Add Notes</button>
+                                        <button type="button" onclick="addNotes()" class="btn  btn-danger" >Add Notes</button>
                                         <button type="submit" class="btn btn-group-sm btn-primary">Order</button>
                                     </div>
                                 </div>
@@ -244,7 +223,7 @@
                                 <div class="card-body" style="align-items: center;">
                                     <h4>{{$item->name}}</h4>
                                     <hr class="m-0">
-                                    <p class="card-text">{{$item->bio}}</p>
+                                    <input type="text" value="{{$item->bio}}" name="notes" class="card-text">
                                     <div class="form-group">
                                         <label class="form-text">size</label>
                                         @foreach($initData['SizeItem'] as $sizeItem)
@@ -333,7 +312,6 @@
                                     <button type="submit" name="buildPizza" class="btn btn-group-sm btn-primary">Order</button>
                                 </div>
                             </form>
-                            </p>
 
                         </div>
                     </div>
@@ -357,7 +335,7 @@
                                 <div class="card-body" style="align-items: center;">
                                     <h4>{{$item->name}}</h4>
                                     <hr class="m-0">
-                                    <p class="card-text">{{$item->bio}}</p>
+                                    <input type="text" value="{{$item->bio}}" name="notes" class="card-text">
                                     <div class="form-group">
                                         <label class="form-text">size</label>
                                         @foreach($initData['SizeItem'] as $sizeItem)
@@ -425,6 +403,10 @@
         }
     });
 </script>
+    </section>
+
+</div>
+
 </body>
 
 </html>

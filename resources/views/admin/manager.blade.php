@@ -119,6 +119,27 @@
 
     <hr class="m-0">
 
+    <section class="p-3 p-lg-5 d-flex align-items-center" id="add Category">
+        <div class="w-100">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class=".col-md-3 .offset-md-3" align="center">
+                            <h2>add Category</h2>
+                            <div class="form-group">
+                                <form method="POST" action="{{route('manager.addCategry')}}">
+                                    @csrf
+                                    <input type="text" placeholder="Categoty ..." name="category_name" class="form-control" required><br>
+                                    <input type="submit" name="addCategory" value="Submit" class="btn btn-primary"><br>
+                                </form>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="m-0">
+
     <section class="p-3 p-lg-5 d-flex align-items-center" id="InsertDish">
         <div class="w-100">
             <div class="container">

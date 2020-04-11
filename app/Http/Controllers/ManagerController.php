@@ -106,6 +106,15 @@ class ManagerController extends Controller
 
     }
 
+    public function addCategory(Request $request)
+    {
+        DB::table('Category')->insert(
+            ['category' => $request->category_name]
+        );
+
+        return redirect('/manager')->with('InetialData' , $this->initData());
+    }
+
 
     public function retriveOrdersFromWareHouseOrder()
     {

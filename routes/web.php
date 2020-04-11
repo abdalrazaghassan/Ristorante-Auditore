@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\DB;
 */
 
 
+Route::get('/' , function (){
+   return redirect('/menu');
+});
+
 
 
 Route::get('/manager' , 'ManagerController@dashboard');
@@ -31,6 +35,8 @@ Route::post('/manager/deleteItem' , 'ManagerController@deleteItem')->name('manag
 Route::post('/manager/submit' , 'ManagerController@submitIngrediant')->name('manager.submit.ingrediant');
 
 Route::get('/manager/addDeleteSupplier' , 'SupplierController@Dashboard');
+
+Route::post('/manager/addCategory' , 'ManagerController@addCategory')->name('manager.addCategry');
 
 Route::post('/manager/addSupplier','SupplierController@addSupplier')->name('addSupplier');
 
@@ -48,8 +54,7 @@ Route::get('/menu' , 'MenuController@index');
 
 Route::post('/menu/submit/order/' , 'MenuController@submitOrder')->name('menu.submit.order');
 
-
-
+Route::get('menu/addNotes/{id}', 'MenuController@addNotes')->name('menu.addNotes');
 
 
 
