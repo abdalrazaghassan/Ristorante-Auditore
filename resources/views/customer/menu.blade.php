@@ -136,7 +136,7 @@
                                         <div class="card-body" style="align-items: center;">
                                             <h4>{{$item->name}}</h4>
                                             <hr class="m-0">
-                                            <textarea id="{{$item->id}}" value="{{$item->bio}}" name="{{$item->id}}" class="card-text"></textarea>
+                                            <p class="card-text">{{$item->bio}}</p>
                                             <div class="form-group">
                                                 <label class="form-text">size</label>
                                                 @foreach($initData['SizeItem'] as $sizeItem)
@@ -153,7 +153,7 @@
                                             <hr>
                                             <div class="container">
                                                 <!-- Button trigger NotesModal -->
-                                                <button type="button" class="btn  btn-danger" onclick="orderNotes({{$item->id}})">Add Notes</button>
+                                                <a href="{{url("menu/addNotes/$item->id")}}" class="btn  btn-danger" >Add Notes</a>
                                                 <button type="submit" class="btn btn-group-sm btn-primary">Order</button>
                                             </div>
                                         </div>
@@ -197,7 +197,7 @@
                                     <hr>
                                     <div class="container">
                                         <!-- Button trigger NotesModal -->
-                                        <button type="button" onclick="addNotes()" class="btn  btn-danger" >Add Notes</button>
+                                        <a href="{{url("menu/addNotes/$item->id")}}" type="submit" class="btn  btn-danger" >Add Notes</a>
                                         <button type="submit" class="btn btn-group-sm btn-primary">Order</button>
                                     </div>
                                 </div>
@@ -240,7 +240,7 @@
                                     <hr>
                                     <div class="container">
                                         <!-- Button trigger NotesModal -->
-                                        <button type="button" class="btn  btn-danger" data-toggle="modal" data-target="#notesModal">Add Notes</button>
+                                        <a href="{{url("menu/addNotes/$item->id")}}" type="submit" class="btn  btn-danger" >Add Notes</a>
                                         <button type="submit" class="btn btn-group-sm btn-primary">Order</button>
                                     </div>
                                 </div>
@@ -352,7 +352,7 @@
                                     <hr>
                                     <div class="container">
                                         <!-- Button trigger NotesModal -->
-                                        <button type="button" class="btn  btn-danger" data-toggle="modal" data-target="#notesModal">Add Notes</button>
+                                        <a href="{{url("menu/addNotes/$item->id")}}" type="submit" class="btn  btn-danger" >Add Notes</a>
                                         <button type="submit" class="btn btn-group-sm btn-primary">Order</button>
                                     </div>
                                 </div>
