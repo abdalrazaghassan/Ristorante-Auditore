@@ -10,6 +10,7 @@
     <title>Ristorante Auditore - Menu</title>
     <link rel="stylesheet" href="{{asset('css/swiper.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+
     <style>
         body {
             background: white;
@@ -153,8 +154,8 @@
                                             <hr>
                                             <div class="container">
                                                 <!-- Button trigger NotesModal -->
-                                                <a href="{{url("menu/addNotes/$item->id")}}" class="btn  btn-danger" >Add Notes</a>
-                                                <button type="submit" class="btn btn-group-sm btn-primary">Order</button>
+                                                <a href="{{url("menu/addNotes/$item->id")}}" target="_blank" class="btn  btn-danger" >Add Notes</a>
+                                                <input type="submit" name="submit" value="Order" class="btn btn-group-sm btn-primary">
                                             </div>
                                         </div>
                                     </div>
@@ -197,8 +198,8 @@
                                     <hr>
                                     <div class="container">
                                         <!-- Button trigger NotesModal -->
-                                        <a href="{{url("menu/addNotes/$item->id")}}" type="submit" class="btn  btn-danger" >Add Notes</a>
-                                        <button type="submit" class="btn btn-group-sm btn-primary">Order</button>
+                                        <a href="{{url("menu/addNotes/$item->id")}}" target="_blank" class="btn  btn-danger" >Add Notes</a>
+                                        <button type="button" class="btn btn-group-sm btn-primary">Order</button>
                                     </div>
                                 </div>
                             </div>
@@ -240,8 +241,8 @@
                                     <hr>
                                     <div class="container">
                                         <!-- Button trigger NotesModal -->
-                                        <a href="{{url("menu/addNotes/$item->id")}}" type="submit" class="btn  btn-danger" >Add Notes</a>
-                                        <button type="submit" class="btn btn-group-sm btn-primary">Order</button>
+                                        <a href="{{url("menu/addNotes/$item->id")}}" target="_blank" class="btn  btn-danger" >Add Notes</a>
+                                        <button type="button" class="btn btn-group-sm btn-primary">Order</button>
                                     </div>
                                 </div>
                             </div>

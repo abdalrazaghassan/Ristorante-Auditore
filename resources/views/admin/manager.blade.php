@@ -104,7 +104,7 @@
                                         @csrf
                                         <select class="form-control" name="table">
                                             @foreach($InetialData['users'] as $table)
-                                                <option value="{{$table->id}}">{{$table->name}}</option>
+                                                <option value="{{$table->user_id}}">{{$table->name}}</option>
                                             @endforeach
                                         </select>
                                         <input type="submit" name="submit" value="delete" />

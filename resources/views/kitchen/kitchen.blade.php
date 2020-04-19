@@ -107,20 +107,40 @@
         <tbody>
             <form method="post" action="{{route('kitchen.addIngrediant')}}">
                 @csrf
-                @foreach($initData['ITEMS'] as $item)
-                    <tr>
-                        <td>
-                            <input type="text" name="item_name" value="{{$item->name}}" />
-                        </td>
-                        <td>
-                            <input type="number" name="amountIngrediant" min="5" max="100" value="5" step="5"> KG
-                        </td>
-                        <td>
-                            <input type="submit" value="Ask Refill" class="btn btn-outline-primary">
-                        </td>
-                    </tr>
-                @endforeach
+                <tr>
+                    <td>
+                    <select name="item_name">
+                        @foreach($initData['ITEMS'] as $item)
+                               <option value="{{$item->name}}">{{$item->name}}</option>
+                        @endforeach
+                    </select>
+                    </td>
+                    <td>
+                        <input type="number" min="5" value="" name="quantity" step="5" />KG
+                    </td>
+                    <td>
+                        <input type="submit" name="submit" value="submit" />
+                    </td>
+                </tr>
             </form>
+
+            @foreach($initData['Ingrediant'] as $ingrediant)
+                <tr>
+                    <td>
+                       {{$ingrediant->name}}
+                    </td>
+                    <td>
+                        {{$ingrediant->quantity}}
+                    </td>
+                    <td>
+                        {{$ingrediant->created_at}}
+                    </td>
+                    <td>
+                        <a href="{{url("/kitchen/removeIngrediant/{$ingrediant->id}")}}" class="btn btn-danger">Remove</a>
+                    </td>
+                </tr>
+            @endforeach
+
         </tbody>
     </table>
 </section>

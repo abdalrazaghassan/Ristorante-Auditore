@@ -77,11 +77,12 @@
                 <div class="row justify-content-center">
                     <div class=".col-md-3 .offset-md-3" align="center">
                         <form action="{{route('deleteSupplier')}}" method="post">
+                            @csrf
                             <h2>Delete Supplier</h2>
                             <div class="form-group">
                                 <select class="form-control" name="supplier">
                                     @for($i = 0 ; $i < count($supplier) ; $i++)
-                                        <option value="">{{$supplier[$i]->name}}</option>
+                                        <option value="{{$supplier[$i]->id}}">{{$supplier[$i]->name}}</option>
                                     @endfor
                                 </select>
                             </div>

@@ -58,12 +58,12 @@ class ManagerController extends Controller
         return $InetialData;
     }
 
-//    public function deleteItem(Request $request){
-//
-//        DB::table('Items')->where('id', '=',$request->dish)->delete();
-//
-//        return redirect('/manager')->with('InetialData' , $this->initData());
-//    }
+    public function deleteItem(Request $request){
+
+        DB::table('Items')->where('id', '=',$request->dish)->delete();
+
+        return redirect('/manager')->with('InetialData' , $this->initData());
+    }
 
 
 
@@ -121,7 +121,7 @@ class ManagerController extends Controller
 
         return DB::table('OrdersHistory')
             ->join('Items', 'Items.id', '=', 'OrdersHistory.item_id')
-            ->join('users', 'users.id', '=', 'OrdersHistory.user_id')
+            ->join('users', 'users.user_id', '=', 'OrdersHistory.user_id')
             ->select('Items.*','OrdersHistory.*','users.name as table_number')
             ->get();
     }
@@ -130,7 +130,7 @@ class ManagerController extends Controller
     {
         return DB::table('OrdersHistory')
             ->join('Items', 'Items.id', '=', 'OrdersHistory.item_id')
-            ->join('users', 'users.id', '=', 'OrdersHistory.user_id')
+            ->join('users', 'users.user_id', '=', 'OrdersHistory.user_id')
             ->join('SizeItem' , 'SizeItem.item_id' , '=' , 'OrdersHistory.item_id')
             ->select('Items.*','OrdersHistory.*', 'SizeItem.*' , 'users.name as table_number')->orderBy('created_at')
             ->sum('SizeItem.price');

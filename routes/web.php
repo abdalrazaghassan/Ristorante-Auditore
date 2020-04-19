@@ -15,71 +15,60 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-
 Route::get('/' , function (){
-   return redirect('/menu');
+    // redirect to login page
+});
+
+
+Route::prefix('/manager')->group(function () {
+
+    Route::get('/' , 'ManagerController@dashboard');
+
+    Route::post('/','ManagerController@deleteTable')->name('manager.deleteTable');
+
+    Route::post('/addItem','ManagerController@addItem')->name('manager.addItem');
+
+    Route::post('/submitSizeAndPrice','ManagerController@submitSizeAndPrice')->name('dish.submit.sizeAndPrice');
+
+    Route::post('/deleteItem' , 'ManagerController@deleteItem')->name('manager.deleteItem');
+
+    Route::post('/submit' , 'ManagerController@submitIngrediant')->name('manager.submit.ingrediant');
+
+    Route::get('/addDeleteSupplier' , 'SupplierController@Dashboard');
+
+    Route::post('/addCategory' , 'ManagerController@addCategory')->name('manager.addCategry');
+
+    Route::post('/addSupplier','SupplierController@addSupplier')->name('addSupplier');
+
+    Route::post('/DeleteSupplier','SupplierController@deleteSupplier')->name('deleteSupplier');
+
+    Route::get('/check' , 'ManagerController@retriveOrdersFromWareHouseOrder');
+
+
+});
+
+Route::prefix('kitchen')->group(function (){
+
+    Route::get('/' , 'KitchenController@index');
+
+    Route::post('/addIngrediant' , 'KitchenController@addIngrediant')->name('kitchen.addIngrediant');
+
+    Route::get('/confirmOrder/{order}' , 'KitchenController@confirmOrder')->name('kitchen.confirmOrder');
+
+    Route::get('/removeIngrediant/{id}' , 'KitchenController@removeIngrediant');
+
+});
+
+Route::prefix('menu')->group(function (){
+
+    Route::get('/' , 'MenuController@index');
+
+    Route::post('/submit/order/' , 'MenuController@submitOrder')->name('menu.submit.order');
+
+    Route::get('/addNotes/{id}', 'MenuController@addNotes')->name('menu.addNotes');
+
 });
 
 
 
-Route::get('/manager' , 'ManagerController@dashboard');
-
-Route::post('/manager','ManagerController@deleteTable')->name('manager.deleteTable');
-
-Route::post('/manager/addItem','ManagerController@addItem')->name('manager.addItem');
-
-Route::post('/manager/submitSizeAndPrice','ManagerController@submitSizeAndPrice')->name('dish.submit.sizeAndPrice');
-
-Route::post('/manager/deleteItem' , 'ManagerController@deleteItem')->name('manager.deleteItem');
-
-Route::post('/manager/submit' , 'ManagerController@submitIngrediant')->name('manager.submit.ingrediant');
-
-Route::get('/manager/addDeleteSupplier' , 'SupplierController@Dashboard');
-
-Route::post('/manager/addCategory' , 'ManagerController@addCategory')->name('manager.addCategry');
-
-Route::post('/manager/addSupplier','SupplierController@addSupplier')->name('addSupplier');
-
-Route::post('/manager/DeleteSupplier','SupplierController@deleteSupplier')->name('deleteSupplier');
-
-Route::get('/kitchen/' , 'KitchenController@index');
-
-Route::post('/kitchen/addIngrediant' , 'KitchenController@addIngrediant')->name('kitchen.addIngrediant');
-
-Route::get('/kitchen/confirmOrder/{order}' , 'KitchenController@confirmOrder')->name('kitchen.confirmOrder');
-
-Route::get('/manager/check' , 'ManagerController@retriveOrdersFromWareHouseOrder');
-
-Route::get('/menu' , 'MenuController@index');
-
-Route::post('/menu/submit/order/' , 'MenuController@submitOrder')->name('menu.submit.order');
-
-Route::get('menu/addNotes/{id}', 'MenuController@addNotes')->name('menu.addNotes');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Route::get('/manager-ing',function (){
-//    return view('admin/manager-ing');
-//});
-//
-//Route::get('/manager-modsup' , function (){
-//   return view('admin/manager-modsup');
-//});
-//
-//Route::get('/manager-oh' , function (){
-//   return view('admin/manager-oh') ;
-//});
 
