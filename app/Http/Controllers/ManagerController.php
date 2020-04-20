@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\SizeItem;
 use Illuminate\Http\Request;
 use App\Items as Items;
+use App\Offers;
 use Illuminate\Support\Facades\DB;
 
 class ManagerController extends Controller
@@ -19,7 +20,6 @@ class ManagerController extends Controller
     public function addItem(Request $request){
 
             $item = new Items;
-
 
             $item->name = $request->item_name;
             $item->cat  = $request->cats;
@@ -53,6 +53,7 @@ class ManagerController extends Controller
             'OrderHistory' => $this->retriveOrdersFromWareHouseOrder(),
             'total_profit' => number_format($this->getTotalProfitOfAllOrder() , 2),
             'sizePriceItem' => $this->getItemsWithSizeAndPrice(),
+            'getAllOffers' => $this->getAllOffers(),
         );
 
         return $InetialData;
@@ -116,12 +117,13 @@ class ManagerController extends Controller
     }
 
 
-    public function retriveOrdersFromWareHouseOrder()
+    private function retriveOrdersFromWareHouseOrder()
     {
 
         return DB::table('OrdersHistory')
             ->join('Items', 'Items.id', '=', 'OrdersHistory.item_id')
             ->join('users', 'users.user_id', '=', 'OrdersHistory.user_id')
+            ->join('SizeItem','SizeItem.item_id','=','Items.id')
             ->select('Items.*','OrdersHistory.*','users.name as table_number')
             ->get();
     }
@@ -142,4 +144,37 @@ class ManagerController extends Controller
                  ->join('Items' , 'Items.id','=','SizeItem.item_id')->get();
     }
 
+    public function addOffers(Request $request)
+    {
+
+        $item = Items::where('id', $request->offerItem)
+                ->first();
+
+        $offer = new Offers;
+        $offer->id_item = $item->id;
+        $offer->size = $request->sizeDish;
+        $offer->discount = $request->amountDiscount;
+
+        $offer->save();
+
+        return redirect('/manager')->with('InetialData' , $this->initData());
+    }
+
+    public function removeOffer($id)
+    {
+        Offers::find($id)->delete();
+
+        return redirect('/manager')->with('InetialData' , $this->initData());
+    }
+
+    private function getAllOffers()
+    {
+        return
+            $offer = DB::table('Offers')
+                ->join('Items','Items.id','=','Offers.id_item')
+                ->join('SizeItem',function ($join){
+                    $join->on('SizeItem.item_id','=','Offers.id_item')
+                         ->on('SizeItem.size','=','Offers.size');
+                })->get();
+    }
 }

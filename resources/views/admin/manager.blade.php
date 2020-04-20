@@ -255,13 +255,33 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class=".col-md-3 .offset-md-3" align="center">
-                        <h2>Add Ingrediant</h2>
+                        <h2>Add Offers</h2>
 
-                        <form action="" method="post">
-
-                            <input type="text" placeholder="Ingrediant Name..." name="table_name" class="form-control" required><br>
-
-                            <input type="submit" name="add_ingrediant" value="Submit" class="btn btn-primary"><br>
+                        <form action="{{route('submit.offer')}}" method="post">
+                            @csrf
+                            <div>
+                                <select name="offerItem">
+                                    @foreach($InetialData['dish'] as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div> <br />
+                            <label>small
+                                <input type="radio" name="sizeDish" value="small">
+                            </label>
+                            <br />
+                            <label>meduim
+                                <input type="radio" name="sizeDish" value="meduim">
+                            </label>
+                            <br />
+                            <label>large
+                                <input type="radio" name="sizeDish" value="large">
+                            </label>
+                            <br />
+                            <label>discount
+                               <input type="number" min="0.0" step="0.1" value="" name="amountDiscount" />
+                            </label> <br />
+                            <input type="submit" value="submit" name="submit" />
                         </form>
                     </div>
                 </div>
@@ -275,24 +295,49 @@
     <section class="p-3 p-lg-5 d-flex align-items-center" id="DeleteIngrediant">
         <div class="w-100">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class=".col-md-3 .offset-md-3" align="center">
-                        <h2>Delete Ingrediant</h2>
-                        <form action="manager.html" method="post">
-
-                            <div class="form-group">
-                                <select class="form-control" name="dish">
-                                    <option selected>Select Ingrediant...</option>
-                                    <option value="">ingrediant name</option>
-                                    <option value="">ingrediant name</option>
-                                </select>
-                            </div>
-                            <input type="submit" name="delete_ingrediant" value="Delete" class="btn btn-danger"><br>
-                        </form>
+                        <h2>Delete Offers</h2>
+                        <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Name Dish</th>
+                            <th>size</th>
+                            <th>base price</th>
+                            <th>discount</th>
+                            <th>total price</th>
+                            <th>Created At</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($InetialData['getAllOffers'] as $offer)
+                                <tr>
+                                    <td>
+                                        {{$offer->name}}
+                                    </td>
+                                    <td>
+                                        {{$offer->size}}
+                                    </td>
+                                    <td>
+                                        {{number_format($offer->price,2)}}/$
+                                    </td>
+                                    <td>
+                                        {{$offer->discount}}%
+                                    </td>
+                                    <td>
+                                        {{number_format(((100 - $offer->discount)/100) * $offer->price,2)}}/$
+                                    </td>
+                                    <td>
+                                        {{$offer->created_at}}
+                                    </td>
+                                    <td>
+                                       <a href="{{url("manager/removeOffer/{$offer->id_offer}")}}" class="btn btn-danger">Remove</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
-        </div>
 
     </section>
 
@@ -330,9 +375,9 @@
                             </select>
                         </td>
                         <td>
-                            <input type="submit" name="submit" class="btn btn-outline-success" value="Approve Refill">
+                            <input type="submit" name="submit" class="btn btn-primary" value="Approve">
 
-                            <input type="submit" name="submit" class="btn btn-outline-danger" value="Deny Refill">
+                            <input type="submit" name="submit" class="btn btn-danger" value="Deny">
                         </td>
                     </tr>
                 @endfor

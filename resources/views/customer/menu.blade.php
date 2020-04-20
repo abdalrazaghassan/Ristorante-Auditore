@@ -71,8 +71,40 @@
 
         .offers {
             margin: 2%;
-            padding: 6%;
+            padding: 2%;
         }
+
+        #header-Offer{
+            font-size: 22px;
+            color: #FFF;
+            text-align: center;
+        }
+
+        .content-offer {
+            background-color: #0b2e13;
+            width: 100%;
+            height: 50%;
+        }
+
+        #img-offer{
+            float: left;
+        }
+
+        #bioAndPrice-offer{
+            background-color: #0f6674;
+        }
+
+        .name-order {
+            text-align: center;
+            background-color: #fff;
+            border-width: 0px;
+            font-size: 20px;
+        }
+
+
+
+
+
     </style>
 </head>
 
@@ -114,12 +146,23 @@
         <h1>Offers</h1>
         <div class="auto-swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide" style="background-color: #183b8c;">Slide 1</div>
-                <div class="swiper-slide" style="background-color: aquamarine;">Slide 2</div>
-                <div class="swiper-slide" style="background-color: brown;">Slide 3</div>
-                <div class="swiper-slide" style="background-color: blueviolet;">Slide 4</div>
-                <div class="swiper-slide" style="background-color: red;">Slide 5</div>
-                <div class="swiper-slide" style="background-color: royalblue;">Slide 6</div>
+                @foreach($initData['offers'] as $offer)
+                     <div class="swiper-slide" style="background-color: #183b8c;">
+                         <header id="header-Offer">
+                            <h1> {{$offer->name}} </h1>
+                            <h2> {{$offer->size}} </h2>
+                            <h3>{{$offer->discount}}%</h3>
+                         </header>
+                         <section class="content-offer">
+                             <img src="..." id="img-offer"/>
+                             <div id="bioAndPrice-offer">
+                                 <p class="bio-offer">{{$offer->bio}}</p>
+                                 <div id="price-offer">{{$offer->price}}$</div>
+                             </div>
+                         </section>
+
+                     </div>
+                @endforeach
             </div>
             <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
@@ -135,9 +178,9 @@
                                     <div class="card" style="width: 18rem;">
                                         <img src="{{asset('img/testPIC.jpg')}}" class="card-img-top">
                                         <div class="card-body" style="align-items: center;">
-                                            <h4>{{$item->name}}</h4>
+                                           <input type="text" name="nameOrder" value="{{$item->name}}" class="name-order" readonly>
                                             <hr class="m-0">
-                                            <p class="card-text">{{$item->bio}}</p>
+                                            <p class="card-text"><input type="text" name="bioOrder" value="{{$item->name}}" class="bio-order" readonly></p>
                                             <div class="form-group">
                                                 <label class="form-text">size</label>
                                                 @foreach($initData['SizeItem'] as $sizeItem)

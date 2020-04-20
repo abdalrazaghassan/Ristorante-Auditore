@@ -30,6 +30,8 @@ return array(
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Ingrediant' => $baseDir . '/app/Ingrediant.php',
     'App\\Items' => $baseDir . '/app/Items.php',
+    'App\\Offers' => $baseDir . '/app/Offers.php',
+    'App\\Orders' => $baseDir . '/app/Orders.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

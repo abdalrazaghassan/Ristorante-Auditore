@@ -44,6 +44,9 @@ Route::prefix('/manager')->group(function () {
 
     Route::get('/check' , 'ManagerController@retriveOrdersFromWareHouseOrder');
 
+    Route::post('/addOffers' , 'ManagerController@addOffers')->name('submit.offer');
+
+    Route::get('/removeOffer/{id}','ManagerController@removeOffer');
 
 });
 
