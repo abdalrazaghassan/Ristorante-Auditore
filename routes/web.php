@@ -75,6 +75,8 @@ Route::prefix('menu')->group(function (){
 
     Route::get('/addNotes/{id}', 'MenuController@addNotes')->name('menu.addNotes');
 
+    Route::get('/removeOrderFromCarts/{cartOrder_id}','MenuController@removeOrderFromCart');
+
 });
 
 

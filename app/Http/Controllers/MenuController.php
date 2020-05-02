@@ -56,6 +56,14 @@ class MenuController extends Controller
         return "<h1>$item</h1>";
     }
 
+    public function removeOrderFromCart($cartOrder_id)
+    {
+
+        DB::table('Carts')->where('cartOrder_id','=',$cartOrder_id)->delete();
+
+        return redirect('/menu')->with('initData' , $this->initData());
+    }
+
     private function getAllOffers()
     {
         return

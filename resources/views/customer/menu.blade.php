@@ -121,7 +121,8 @@
             <div class="modal-body">
                 <ul class="list-group">
                     @foreach($initData['Carts'] as $order)
-                      <li class="list-group-item">{{$order->name}} <span style="color: #721c24">{{$order->size}}</span> <span style="font-weight: bold">{{$order->price}}$</span></li>
+                      <li class="list-group-item">{{$order->name}} <span style="color: #721c24">{{$order->size}}</span>
+                          <span style="font-weight: bold">{{$order->price}}$</span><a class="btn btn-danger" href="{{url("menu/removeOrderFromCarts/$order->cartOrder_id")}}">Remove</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -174,7 +175,7 @@
                                             <input type="text" name="id_order" value="{{$item->id}}" hidden>
                                             <hr class="m-0">
                                             <textarea name="bioOrder" form="Entrees">
-                                                {{$item->name}}
+                                                {{$item->bio}}
                                             </textarea>
 
                                             <div class="form-group">
@@ -188,8 +189,6 @@
                                                     @endif
                                                 @endforeach
                                             </div>
-                                            <label>Quantity</label>
-                                            <input type="number" style="width:25%;" name="amountInput" min="0" max="20" value="0" step="1">
                                             <hr>
                                             <div class="container">
                                                 <!-- Button trigger NotesModal -->
@@ -222,7 +221,7 @@
                                     <input type="text" name="id_order" value="{{$item->id}}" hidden>
                                     <hr class="m-0">
                                     <textarea name="bioOrder" form="Main Dishes">
-                                                {{$item->name}}
+                                        {{$item->bio}}
                                     </textarea>
 
                                     <div class="form-group">
@@ -236,8 +235,6 @@
                                             @endif
                                         @endforeach
                                     </div>
-                                    <label>Quantity</label>
-                                    <input type="number" style="width:25%;" name="amountInput" min="0" max="20" value="0" step="1">
                                     <hr>
                                     <div class="container">
                                         <!-- Button trigger NotesModal -->
