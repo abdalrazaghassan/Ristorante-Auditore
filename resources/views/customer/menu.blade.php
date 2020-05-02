@@ -121,8 +121,12 @@
             <div class="modal-body">
                 <ul class="list-group">
                     @foreach($initData['Carts'] as $order)
-                      <li class="list-group-item">{{$order->name}} <span style="color: #721c24">{{$order->size}}</span>
-                          <span style="font-weight: bold">{{$order->price}}$</span><a class="btn btn-danger" href="{{url("menu/removeOrderFromCarts/$order->cartOrder_id")}}">Remove</a></li>
+                      <li class="list-group-item" style="text-align: center">{{$order->name}}<br />
+                          <span style="color: #721c24">{{$order->size}}</span><br />
+                          <span style="color: #1d68a7">{{$order->quantity}}</span><br />
+                          <span style="font-weight: bold">{{$order->quantity * $order->price}}$</span><br />
+                          <p>{{$order->customize}}</p>
+                          <a class="btn btn-danger"  href="{{url("menu/removeOrderFromCarts/$order->cartOrder_id")}}">Remove</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -189,6 +193,8 @@
                                                     @endif
                                                 @endforeach
                                             </div>
+                                            <label>Quantity</label>
+                                            <input type="number" style="width:25%;" name="amountInput" min="0" max="20" value="0" step="1">
                                             <hr>
                                             <div class="container">
                                                 <!-- Button trigger NotesModal -->
@@ -235,6 +241,8 @@
                                             @endif
                                         @endforeach
                                     </div>
+                                    <label>Quantity</label>
+                                    <input type="number" style="width:25%;" name="amountInput" min="0" max="20" value="0" step="1">
                                     <hr>
                                     <div class="container">
                                         <!-- Button trigger NotesModal -->
