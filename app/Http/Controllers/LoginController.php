@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -13,7 +15,10 @@ class LoginController extends Controller
 
         if (auth()->attempt(['username'=>$username,'password'=>$password])){
 
-            session(['table' => $username]);
+            $userID = DB::table('users')
+                ->where('username','=',$username)->first()->user_id;
+
+            session(['table' => $userID]);
 
             return redirect('/menu');
         }

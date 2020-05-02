@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Carts;
 use App\Orders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,10 +31,10 @@ class MenuController extends Controller
     public function submitOrder(Request $request)
     {
 
-        $order = new Orders;
+        $order = new Carts;
 
-        $order->user_id = session('table');
         $order->item_id = $request->id_order;
+        $order->user_id = session('table');
         $order->price_size_id = $request['pizzaSize'];
         $order->quantity = $request['amountInput'];
         $order->customize = $request['bioOrder'];

@@ -167,15 +167,18 @@
                     <div class="swiper-wrapper">
                         @foreach($initData['Entrees'] as $item)
                             <div class="swiper-slide">
-                                <form method="POST" action="{{route('menu.submit.order')}}">
+                                <form method="POST" action="{{route('menu.submit.order')}}" id="orderForm">
                                     @csrf
                                     <div class="card" style="width: 18rem;">
                                         <img src="{{asset('img/testPIC.jpg')}}" class="card-img-top">
                                         <div class="card-body" style="align-items: center;">
-                                           <input type="text" name="nameOrder" value="{{$item->name}}" class="name-order" readonly>
-                                           <input type="text" name="id_order" value="{{$item->id}}" hidden>
+                                            <p class="card-text">{{$item->name}}</p>
+                                            <input type="text" name="id_order" value="{{$item->id}}" hidden>
                                             <hr class="m-0">
-                                            <p class="card-text"><input type="text" name="bioOrder" value="{{$item->name}}" class="bio-order" readonly></p>
+                                            <textarea name="bioOrder" form="orderForm">
+                                                {{$item->name}}
+                                            </textarea>
+
                                             <div class="form-group">
                                                 <label class="form-text">size</label>
                                                 @foreach($initData['SizeItem'] as $sizeItem)
