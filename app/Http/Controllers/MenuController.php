@@ -19,6 +19,7 @@ class MenuController extends Controller
             'Side Dishes' => DB::table('Items')->where('cat' , '=' , 'Side Dishes')->get(),
             'offers' => $this->getAllOffers(),
             'SizeItem' => DB::table('SizeItem')->get(),
+            'Carts' => $this->getOrdersFromCarts(),
         );
 
     }
@@ -64,6 +65,15 @@ class MenuController extends Controller
                     $join->on('SizeItem.item_id','=','Offers.id_item')
                         ->on('SizeItem.size','=','Offers.size');
                 })->get();
+    }
+
+    private function getOrdersFromCarts()
+    {
+       return DB::table('Carts')
+           ->where('user_id','=',session('table'))
+           ->join('Items','Items.id','=','Carts.item_id')
+           ->join('SizeItem','SizeItem.price_size_id','=','Carts.price_size_id')
+           ->get();
     }
 
 }

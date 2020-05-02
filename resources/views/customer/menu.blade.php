@@ -120,11 +120,9 @@
             </div>
             <div class="modal-body">
                 <ul class="list-group">
-                    <li class="list-group-item">item with price</li>
-                    <li class="list-group-item">item with price</li>
-                    <li class="list-group-item">item with price</li>
-                    <li class="list-group-item">item with price</li>
-                    <li class="list-group-item active" id="tp"></li>
+                    @foreach($initData['Carts'] as $order)
+                      <li class="list-group-item">{{$order->name}} <span style="color: #721c24">{{$order->size}}</span> <span style="font-weight: bold">{{$order->price}}$</span></li>
+                    @endforeach
                 </ul>
             </div>
             <div class="modal-footer">
@@ -167,7 +165,7 @@
                     <div class="swiper-wrapper">
                         @foreach($initData['Entrees'] as $item)
                             <div class="swiper-slide">
-                                <form method="POST" action="{{route('menu.submit.order')}}" id="orderForm">
+                                <form method="POST" action="{{route('menu.submit.order')}}" id="Entrees">
                                     @csrf
                                     <div class="card" style="width: 18rem;">
                                         <img src="{{asset('img/testPIC.jpg')}}" class="card-img-top">
@@ -175,7 +173,7 @@
                                             <p class="card-text">{{$item->name}}</p>
                                             <input type="text" name="id_order" value="{{$item->id}}" hidden>
                                             <hr class="m-0">
-                                            <textarea name="bioOrder" form="orderForm">
+                                            <textarea name="bioOrder" form="Entrees">
                                                 {{$item->name}}
                                             </textarea>
 
@@ -215,20 +213,24 @@
             <div class="swiper-wrapper">
                 @foreach($initData['Main Dishes'] as $item)
                     <div class="swiper-slide">
-                        <form method="POST" action="{{route('menu.submit.order')}}">
+                        <form method="POST" action="{{route('menu.submit.order')}}" id="Main Dishes">
                             @csrf
                             <div class="card" style="width: 18rem;">
                                 <img src="{{asset('img/testPIC.jpg')}}" class="card-img-top">
                                 <div class="card-body" style="align-items: center;">
-                                    <h4>{{$item->name}}</h4>
+                                    <p class="card-text">{{$item->name}}</p>
+                                    <input type="text" name="id_order" value="{{$item->id}}" hidden>
                                     <hr class="m-0">
-                                    <input type="text" value="{{$item->bio}}" name="notesOrder" class="card-text">
+                                    <textarea name="bioOrder" form="Main Dishes">
+                                                {{$item->name}}
+                                    </textarea>
+
                                     <div class="form-group">
                                         <label class="form-text">size</label>
                                         @foreach($initData['SizeItem'] as $sizeItem)
                                             @if($sizeItem->item_id == $item->id)
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio1" value="{{$sizeItem->size}}">
+                                                    <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio1" value="{{$sizeItem->price_size_id}}">
                                                     <label class="form-check-label" for="inlineRadio1">{{$sizeItem->size}} {{$sizeItem->price}}$</label>
                                                 </div>
                                             @endif
@@ -240,7 +242,7 @@
                                     <div class="container">
                                         <!-- Button trigger NotesModal -->
                                         <a href="{{url("menu/addNotes/$item->id")}}" target="_blank" class="btn  btn-danger" >Add Notes</a>
-                                        <button type="button" class="btn btn-group-sm btn-primary">Order</button>
+                                        <input type="submit" name="submit" value="Order" class="btn btn-group-sm btn-primary">
                                     </div>
                                 </div>
                             </div>
@@ -258,7 +260,7 @@
             <div class="swiper-wrapper">
                 @foreach($initData['Side Dishes'] as $item)
                     <div class="swiper-slide">
-                        <form method="POST" action="{{route('menu.submit.order')}}">
+                        <form method="POST" action="{{route('menu.submit.order')}}" id="Side Dishes">
                             @csrf
                             <div class="card" style="width: 18rem;">
                                 <img src="{{asset('img/testPIC.jpg')}}" class="card-img-top">
@@ -412,7 +414,8 @@
 <script type="text/javascript" src="{{asset('js/swiper.min.js')}}"></script>
 <!-- Initialize Swiper -->
 <script>
-    var totalPrice = 20;
+
+    var totalPrice = 20
     document.getElementById("tp").innerHTML = "Total Price: " + totalPrice;
 
     var swiper = new Swiper('.swiper-container', {
