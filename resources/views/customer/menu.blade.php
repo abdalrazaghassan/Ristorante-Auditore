@@ -1,5 +1,4 @@
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -101,10 +100,6 @@
             font-size: 20px;
         }
 
-
-
-
-
     </style>
 </head>
 
@@ -139,7 +134,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="allSections">
     <section class="Dishes offers">
@@ -179,6 +173,7 @@
                                         <img src="{{asset('img/testPIC.jpg')}}" class="card-img-top">
                                         <div class="card-body" style="align-items: center;">
                                            <input type="text" name="nameOrder" value="{{$item->name}}" class="name-order" readonly>
+                                           <input type="text" name="id_order" value="{{$item->id}}" hidden>
                                             <hr class="m-0">
                                             <p class="card-text"><input type="text" name="bioOrder" value="{{$item->name}}" class="bio-order" readonly></p>
                                             <div class="form-group">
@@ -186,7 +181,7 @@
                                                 @foreach($initData['SizeItem'] as $sizeItem)
                                                     @if($sizeItem->item_id == $item->id)
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio1" value="{{$sizeItem->size}}">
+                                                            <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio1" value="{{$sizeItem->price_size_id}}">
                                                             <label class="form-check-label" for="inlineRadio1">{{$sizeItem->size}} {{$sizeItem->price}}$</label>
                                                         </div>
                                                     @endif

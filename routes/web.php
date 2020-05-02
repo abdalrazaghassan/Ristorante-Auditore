@@ -19,12 +19,17 @@ Route::get('/' , function (){
     // redirect to login page
 });
 
+Route::view('/index','index');
+
+Route::post('/login','LoginController@checkUser')->name('login');
 
 Route::prefix('/manager')->group(function () {
 
     Route::get('/' , 'ManagerController@dashboard');
 
     Route::post('/','ManagerController@deleteTable')->name('manager.deleteTable');
+
+    Route::post('/addTable','ManagerController@addTable')->name('submit.addTable');
 
     Route::post('/addItem','ManagerController@addItem')->name('manager.addItem');
 

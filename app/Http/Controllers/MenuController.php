@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Orders;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MenuController extends Controller
@@ -28,12 +30,20 @@ class MenuController extends Controller
     public function submitOrder(Request $request)
     {
 
+        $order = new Orders;
+
+        $order->user_id = session('table');
+        $order->item_id = $request->id_order;
+        $order->price_size_id = $request['pizzaSize'];
+        $order->quantity = $request['amountInput'];
+        $order->customize = $request['bioOrder'];
+
+        $order->save();
 
 
+       return redirect('/menu')->with('initData' , $this->initData());
 
-//        return redirect('/menu')->with('initData' , $this->initData());
-
-        return $request;
+//       return $request;
     }
 
     public function addNotes($id)

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\SizeItem;
+use App\User;
 use Illuminate\Http\Request;
 use App\Items as Items;
 use App\Offers;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ManagerController extends Controller
 {
@@ -176,5 +178,19 @@ class ManagerController extends Controller
                     $join->on('SizeItem.item_id','=','Offers.id_item')
                          ->on('SizeItem.size','=','Offers.size');
                 })->get();
+    }
+
+    public function addTable(Request $request)
+    {
+
+        $table = new User;
+
+        $table->name = $request['nameTable'];
+        $table->username = $request['table_name'];
+        $table->password = Hash::make($request['table_pass']);
+        $table->save();
+
+
+        return redirect('/manager')->with('InetialData' , $this->initData());
     }
 }

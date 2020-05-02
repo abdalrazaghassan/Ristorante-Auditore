@@ -75,8 +75,11 @@
                     <div class=".col-md-3 .offset-md-3" align="center">
                         <h2>Add Table</h2>
 
-                        <form  method="post" action="manager.html">
+                        <form  method="post" action="{{route('submit.addTable')}}">
                            @csrf
+
+                            <input type="text" placeholder="Table Name..." name="nameTable" class="form-control" required><br>
+
                             <input type="text" placeholder="Table Name..." name="table_name" class="form-control" required><br>
 
                             <input type="password" placeholder="Table Password..." name="table_pass" class="form-control" required><br>
