@@ -84,4 +84,40 @@ class MenuController extends Controller
            ->get();
     }
 
+    private function clearCarts()
+    {
+        DB::table('Carts')->delete();
+    }
+
+    public function ConfirmOrderAndTransfer(Request $request)
+    {
+        $orderInCarts = DB::table('Carts')->get();
+
+        foreach ($orderInCarts as $order)
+        {
+            $singleOrder = new Orders;
+            $singleOrder->item_id =  $order->item_id;
+            $singleOrder->price_size_id =  $order->price_size_id;
+            $singleOrder->quantity =  $order->quantity;
+            $singleOrder->customize =  $order->customize;
+            $singleOrder->user_id =  $order->user_id;
+            $singleOrder->save();
+//            DB::table('orders')->insert(
+//                [
+//                 'item_id'  => $order->item_id,
+//                 'price_size_id' => $order->price_size_id,
+//                 'quantity'      => $order->quantity,
+//                 'customize'     => $order->customize,
+//                 'created_at'    => \Carbon\Carbon::now()->toDateTimeString(),
+//                 'updated_at'    => \Carbon\Carbon::now()->toDateTimeString(),
+//                 'user_id ' => $order->user_id,
+//                ]
+//            );
+        }
+
+        $this->clearCarts();
+
+        return redirect('/menu')->with('initData' , $this->initData());
+    }
+
 }

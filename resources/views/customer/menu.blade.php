@@ -132,7 +132,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Confirm your Order!</button>
+                <form method="POST" action="{{route('menu.confirm.transferCarts')}}">
+                     @csrf
+                    <button type="submit" class="btn btn-success">Confirm your Order!</button>
+                </form>
             </div>
         </div>
     </div>
@@ -265,20 +268,24 @@
             <div class="swiper-wrapper">
                 @foreach($initData['Side Dishes'] as $item)
                     <div class="swiper-slide">
-                        <form method="POST" action="{{route('menu.submit.order')}}" id="Side Dishes">
+                        <form method="POST" action="{{route('menu.submit.order')}}" id="Main Dishes">
                             @csrf
                             <div class="card" style="width: 18rem;">
                                 <img src="{{asset('img/testPIC.jpg')}}" class="card-img-top">
                                 <div class="card-body" style="align-items: center;">
-                                    <h4>{{$item->name}}</h4>
+                                    <p class="card-text">{{$item->name}}</p>
+                                    <input type="text" name="id_order" value="{{$item->id}}" hidden>
                                     <hr class="m-0">
-                                    <input type="text" value="{{$item->bio}}" name="notes" class="card-text">
+                                    <textarea name="bioOrder" form="Main Dishes">
+                                        {{$item->bio}}
+                                    </textarea>
+
                                     <div class="form-group">
                                         <label class="form-text">size</label>
                                         @foreach($initData['SizeItem'] as $sizeItem)
                                             @if($sizeItem->item_id == $item->id)
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio1" value="{{$sizeItem->size}}">
+                                                    <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio1" value="{{$sizeItem->price_size_id}}">
                                                     <label class="form-check-label" for="inlineRadio1">{{$sizeItem->size}} {{$sizeItem->price}}$</label>
                                                 </div>
                                             @endif
@@ -290,7 +297,7 @@
                                     <div class="container">
                                         <!-- Button trigger NotesModal -->
                                         <a href="{{url("menu/addNotes/$item->id")}}" target="_blank" class="btn  btn-danger" >Add Notes</a>
-                                        <button type="button" class="btn btn-group-sm btn-primary">Order</button>
+                                        <input type="submit" name="submit" value="Order" class="btn btn-group-sm btn-primary">
                                     </div>
                                 </div>
                             </div>
@@ -302,95 +309,30 @@
     </section>
 
     <section class="Dishes">
-        <h1>Pizza</h1>
-        <!--Swiper -->
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="card" style="width: 19rem;">
-                        <img src="img/testPIC.jpg" class="card-img-top">
-                        <div class="card-body" style="align-items: center;">
-                            <h4>Build your Pizza</h4>
-                            <hr class="m-0">
-                            <p class="card-text">
-                            <form method="post" action="menu.html">
-                                <div class="form-group">
-                                    <label class="form-text">pizza size</label>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio1" value="small">
-                                        <label class="form-check-label" for="inlineRadio1">S:14$</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio2" value="medium">
-                                        <label class="form-check-label" for="inlineRadio2">M:20$</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio3" value="large">
-                                        <label class="form-check-label" for="inlineRadio3">L:28$</label>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="topping1">Meats</label>
-                                    </div>
-                                    <select class="custom-select" id="topping1">
-                                        <option selected>Choose...</option>
-                                        <option value="none">None</option>
-                                        <option value="Pepperoni">Pepperoni</option>
-                                        <option value="Italian Sausage">Italian Sausage</option>
-                                        <option value="Chicken">Chicken</option>
-                                        <option value="Meatball">Meatball</option>
-                                    </select>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="topping2">Veggies</label>
-                                    </div>
-                                    <select class="custom-select" id="topping2">
-                                        <option selected>Choose...</option>
-                                        <option value="none">None</option>
-                                        <option value="Mushroom">Mushroom</option>
-                                        <option value="Onion">Onion</option>
-                                        <option value="Bell Pepper">Bell Pepper</option>
-                                        <option value="Black Olive">Black Olive</option>
-                                    </select>
-                                </div>
-                                <div class="container">
-                                    Quantity
-                                    <input type="number" style="width:25%;" name="amountInput" min="0" max="20" value="0" step="1">
-                                    <button type="submit" name="buildPizza" class="btn btn-group-sm btn-primary">Order</button>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="Dishes">
         <h1>Desserts</h1>
         <!--Swiper -->
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 @foreach($initData['Side Dishes'] as $item)
                     <div class="swiper-slide">
-                        <form method="POST" action="{{route('menu.submit.order')}}">
+                        <form method="POST" action="{{route('menu.submit.order')}}" id="Main Dishes">
                             @csrf
                             <div class="card" style="width: 18rem;">
                                 <img src="{{asset('img/testPIC.jpg')}}" class="card-img-top">
                                 <div class="card-body" style="align-items: center;">
-                                    <h4>{{$item->name}}</h4>
+                                    <p class="card-text">{{$item->name}}</p>
+                                    <input type="text" name="id_order" value="{{$item->id}}" hidden>
                                     <hr class="m-0">
-                                    <input type="text" value="{{$item->bio}}" name="notes" class="card-text">
+                                    <textarea name="bioOrder" form="Main Dishes">
+                                        {{$item->bio}}
+                                    </textarea>
+
                                     <div class="form-group">
                                         <label class="form-text">size</label>
                                         @foreach($initData['SizeItem'] as $sizeItem)
                                             @if($sizeItem->item_id == $item->id)
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio1" value="{{$sizeItem->size}}">
+                                                    <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio1" value="{{$sizeItem->price_size_id}}">
                                                     <label class="form-check-label" for="inlineRadio1">{{$sizeItem->size}} {{$sizeItem->price}}$</label>
                                                 </div>
                                             @endif
@@ -401,8 +343,8 @@
                                     <hr>
                                     <div class="container">
                                         <!-- Button trigger NotesModal -->
-                                        <a href="{{url("menu/addNotes/$item->id")}}" type="submit" class="btn  btn-danger" >Add Notes</a>
-                                        <button type="submit" class="btn btn-group-sm btn-primary">Order</button>
+                                        <a href="{{url("menu/addNotes/$item->id")}}" target="_blank" class="btn  btn-danger" >Add Notes</a>
+                                        <input type="submit" name="submit" value="Order" class="btn btn-group-sm btn-primary">
                                     </div>
                                 </div>
                             </div>

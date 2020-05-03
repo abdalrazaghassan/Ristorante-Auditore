@@ -77,6 +77,7 @@ Route::prefix('menu')->group(function (){
 
     Route::get('/removeOrderFromCarts/{cartOrder_id}','MenuController@removeOrderFromCart');
 
+    Route::post('/menuConfirmOrder','MenuController@ConfirmOrderAndTransfer')->name('menu.confirm.transferCarts');
 });
 
 
