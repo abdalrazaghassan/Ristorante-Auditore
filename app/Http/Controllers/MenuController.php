@@ -17,6 +17,7 @@ class MenuController extends Controller
             'Entrees' => DB::table('Items')->where('cat' , '=' , 'Entrees')->get(),
             'Main Dishes' => DB::table('Items')->where('cat', '=' , 'Main Dishes')->get(),
             'Side Dishes' => DB::table('Items')->where('cat' , '=' , 'Side Dishes')->get(),
+            'Desserts' => DB::table('Items')->where('cat' , '=' , 'Side Dishes')->get(),
             'offers' => $this->getAllOffers(),
             'SizeItem' => DB::table('SizeItem')->get(),
             'Carts' => $this->getOrdersFromCarts(),

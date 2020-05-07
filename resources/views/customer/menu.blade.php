@@ -226,7 +226,6 @@
                                                 <hr>
                                                 <div class="container">
                                                     <!-- Button trigger NotesModal -->
-                                                    <a href="{{url("menu/addNotes/$item->id")}}" target="_blank" class="btn  btn-danger" >Add Notes</a>
                                                     <input type="submit" name="submit" value="Order" class="btn btn-group-sm btn-primary">
                                                 </div>
                                             </div>
@@ -274,7 +273,6 @@
                                     <hr>
                                     <div class="container">
                                         <!-- Button trigger NotesModal -->
-                                        <a href="{{url("menu/addNotes/$item->id")}}" target="_blank" class="btn  btn-danger" >Add Notes</a>
                                         <input type="submit" name="submit" value="Order" class="btn btn-group-sm btn-primary">
                                     </div>
                                 </div>
@@ -338,7 +336,7 @@
         <!--Swiper -->
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                @foreach($initData['Entrees'] as $item)
+                @foreach($initData['Desserts'] as $item)
                     <div class="swiper-slide">
                         <form method="POST" action="{{route('menu.submit.order')}}" id="Main Dishes">
                             @csrf
