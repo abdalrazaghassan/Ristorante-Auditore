@@ -150,7 +150,7 @@
                     <div class=".col-md-3 .offset-md-3" align="center">
                         <h2>Insert Dish</h2>
 
-                        <form action="{{route('manager.addItem')}}" method="post">
+                        <form action="{{route('manager.addItem')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <input type="text" placeholder="Dish name..." name="item_name" class="form-control" required><br>
                             <div class="form-group">
@@ -170,12 +170,10 @@
                                     <span class="input-group-text" id="inputGroupFileAddon01">Dish pic...</span>
                                 </div>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="item_pic">
+                                    <input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01" name="item_pic">
                                     <label class="custom-file-label" for="inputGroupFile01">Choose pic</label>
                                 </div>
                             </div>
-
-
                             <input type="submit" name="insert_dish" value="Submit" class="btn btn-primary"><br>
                         </form>
                     </div>

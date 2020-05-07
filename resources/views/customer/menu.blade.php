@@ -91,6 +91,7 @@
 
         #bioAndPrice-offer{
             background-color: #0f6674;
+            max-height: 150px;
         }
 
         .name-order {
@@ -98,6 +99,25 @@
             background-color: #fff;
             border-width: 0px;
             font-size: 20px;
+        }
+
+        .content-offer .content-img-offer{
+            max-width: 150px;
+            max-height: 150px;
+            background-size: contain;
+        }
+
+        .content-offer .content-img-offer img
+        {
+            max-width: 150px;
+            max-height: 150px;
+        }
+
+        #price-offer
+        {
+            background-color: #1d643b;
+            text-align: center;
+            font-size: 18pt;
         }
 
     </style>
@@ -120,14 +140,18 @@
             </div>
             <div class="modal-body">
                 <ul class="list-group">
+                    <span style="visibility: hidden">{{$totalPrice = 0}}</span>
                     @foreach($initData['Carts'] as $order)
                       <li class="list-group-item" style="text-align: center">{{$order->name}}<br />
                           <span style="color: #721c24">{{$order->size}}</span><br />
+                          <span style="color: #307249">price single dish = {{$order->price}}</span><br />
                           <span style="color: #1d68a7">{{$order->quantity}}</span><br />
-                          <span style="font-weight: bold">{{$order->quantity * $order->price}}$</span><br />
+                          <span style="font-weight: bold">total price dish = {{$order->quantity * $order->price}}$</span><br />
                           <p>{{$order->customize}}</p>
                           <a class="btn btn-danger"  href="{{url("menu/removeOrderFromCarts/$order->cartOrder_id")}}">Remove</a></li>
+                         <span style="visibility: hidden">{{$totalPrice += ($order->quantity * $order->price)}}</span>
                     @endforeach
+                        <li class="list-group-item active" id="tp">Total Price: {{$totalPrice}}</li>
                 </ul>
             </div>
             <div class="modal-footer">
@@ -149,18 +173,19 @@
                 @foreach($initData['offers'] as $offer)
                      <div class="swiper-slide" style="background-color: #183b8c;">
                          <header id="header-Offer">
-                            <h1> {{$offer->name}} </h1>
-                            <h2> {{$offer->size}} </h2>
-                            <h3>{{$offer->discount}}%</h3>
+                            <h1>{{$offer->name}} </h1>
+                            <h2>{{$offer->size}} </h2>
+                            <h3>Discount {{$offer->discount}}%</h3>
                          </header>
                          <section class="content-offer">
-                             <img src="..." id="img-offer"/>
+                             <div class="content-img-offer">
+                                 <img src="{{asset('/img/testPIC.jpg')}}" id="img-offer"/>
+                             </div>
                              <div id="bioAndPrice-offer">
-                                 <p class="bio-offer">{{$offer->bio}}</p>
-                                 <div id="price-offer">{{$offer->price}}$</div>
+                                 <p class="bio-offer" style="background-color: #0f6674">{{$offer->bio}}</p>
+                                 <div id="price-offer">Total Price : {{$offer->price}}$</div>
                              </div>
                          </section>
-
                      </div>
                 @endforeach
             </div>
@@ -172,43 +197,43 @@
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         @foreach($initData['Entrees'] as $item)
-                            <div class="swiper-slide">
-                                <form method="POST" action="{{route('menu.submit.order')}}" id="Entrees">
-                                    @csrf
-                                    <div class="card" style="width: 18rem;">
-                                        <img src="{{asset('img/testPIC.jpg')}}" class="card-img-top">
-                                        <div class="card-body" style="align-items: center;">
-                                            <p class="card-text">{{$item->name}}</p>
-                                            <input type="text" name="id_order" value="{{$item->id}}" hidden>
-                                            <hr class="m-0">
-                                            <textarea name="bioOrder" form="Entrees">
-                                                {{$item->bio}}
-                                            </textarea>
+                                <div class="swiper-slide">
+                                    <form method="POST" action="{{route('menu.submit.order')}}" id="Main Dishes">
+                                        @csrf
+                                        <div class="card" style="width: 18rem;">
+                                            <img src="{{asset('img/testPIC.jpg')}}" class="card-img-top">
+                                            <div class="card-body" style="align-items: center;">
+                                                <p class="card-text">{{$item->name}}</p>
+                                                <input type="text" name="id_order" value="{{$item->id}}" hidden>
+                                                <hr class="m-0">
+                                                <textarea name="bioOrder" form="Main Dishes">
+                                        {{$item->bio}}
+                                    </textarea>
 
-                                            <div class="form-group">
-                                                <label class="form-text">size</label>
-                                                @foreach($initData['SizeItem'] as $sizeItem)
-                                                    @if($sizeItem->item_id == $item->id)
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio1" value="{{$sizeItem->price_size_id}}">
-                                                            <label class="form-check-label" for="inlineRadio1">{{$sizeItem->size}} {{$sizeItem->price}}$</label>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                            <label>Quantity</label>
-                                            <input type="number" style="width:25%;" name="amountInput" min="0" max="20" value="0" step="1">
-                                            <hr>
-                                            <div class="container">
-                                                <!-- Button trigger NotesModal -->
-                                                <a href="{{url("menu/addNotes/$item->id")}}" target="_blank" class="btn  btn-danger" >Add Notes</a>
-                                                <input type="submit" name="submit" value="Order" class="btn btn-group-sm btn-primary">
+                                                <div class="form-group">
+                                                    <label class="form-text">size</label>
+                                                    @foreach($initData['SizeItem'] as $sizeItem)
+                                                        @if($sizeItem->item_id == $item->id)
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio1" value="{{$sizeItem->price_size_id}}">
+                                                                <label class="form-check-label" for="inlineRadio1">{{$sizeItem->size}} {{$sizeItem->price}}$</label>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                                <label>Quantity</label>
+                                                <input type="number" style="width:25%;" name="amountInput" min="0" max="20" value="0" step="1">
+                                                <hr>
+                                                <div class="container">
+                                                    <!-- Button trigger NotesModal -->
+                                                    <a href="{{url("menu/addNotes/$item->id")}}" target="_blank" class="btn  btn-danger" >Add Notes</a>
+                                                    <input type="submit" name="submit" value="Order" class="btn btn-group-sm btn-primary">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
-                            </div>
-                        @endforeach
+                                    </form>
+                                </div>
+                            @endforeach
                     </div>
                 </div>
 
@@ -267,43 +292,43 @@
             <div class="swiper-container">
             <div class="swiper-wrapper">
                 @foreach($initData['Side Dishes'] as $item)
-                    <div class="swiper-slide">
-                        <form method="POST" action="{{route('menu.submit.order')}}" id="Main Dishes">
-                            @csrf
-                            <div class="card" style="width: 18rem;">
-                                <img src="{{asset('img/testPIC.jpg')}}" class="card-img-top">
-                                <div class="card-body" style="align-items: center;">
-                                    <p class="card-text">{{$item->name}}</p>
-                                    <input type="text" name="id_order" value="{{$item->id}}" hidden>
-                                    <hr class="m-0">
-                                    <textarea name="bioOrder" form="Main Dishes">
+                        <div class="swiper-slide">
+                            <form method="POST" action="{{route('menu.submit.order')}}" id="Main Dishes">
+                                @csrf
+                                <div class="card" style="width: 18rem;">
+                                    <img src="{{asset('img/testPIC.jpg')}}" class="card-img-top">
+                                    <div class="card-body" style="align-items: center;">
+                                        <p class="card-text">{{$item->name}}</p>
+                                        <input type="text" name="id_order" value="{{$item->id}}" hidden>
+                                        <hr class="m-0">
+                                        <textarea name="bioOrder" form="Main Dishes">
                                         {{$item->bio}}
                                     </textarea>
 
-                                    <div class="form-group">
-                                        <label class="form-text">size</label>
-                                        @foreach($initData['SizeItem'] as $sizeItem)
-                                            @if($sizeItem->item_id == $item->id)
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio1" value="{{$sizeItem->price_size_id}}">
-                                                    <label class="form-check-label" for="inlineRadio1">{{$sizeItem->size}} {{$sizeItem->price}}$</label>
-                                                </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                    <label>Quantity</label>
-                                    <input type="number" style="width:25%;" name="amountInput" min="0" max="20" value="0" step="1">
-                                    <hr>
-                                    <div class="container">
-                                        <!-- Button trigger NotesModal -->
-                                        <a href="{{url("menu/addNotes/$item->id")}}" target="_blank" class="btn  btn-danger" >Add Notes</a>
-                                        <input type="submit" name="submit" value="Order" class="btn btn-group-sm btn-primary">
+                                        <div class="form-group">
+                                            <label class="form-text">size</label>
+                                            @foreach($initData['SizeItem'] as $sizeItem)
+                                                @if($sizeItem->item_id == $item->id)
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="pizzaSize" id="inlineRadio1" value="{{$sizeItem->price_size_id}}">
+                                                        <label class="form-check-label" for="inlineRadio1">{{$sizeItem->size}} {{$sizeItem->price}}$</label>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                        <label>Quantity</label>
+                                        <input type="number" style="width:25%;" name="amountInput" min="0" max="20" value="0" step="1">
+                                        <hr>
+                                        <div class="container">
+                                            <!-- Button trigger NotesModal -->
+                                            <a href="{{url("menu/addNotes/$item->id")}}" target="_blank" class="btn  btn-danger" >Add Notes</a>
+                                            <input type="submit" name="submit" value="Order" class="btn btn-group-sm btn-primary">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                @endforeach
+                            </form>
+                        </div>
+                    @endforeach
             </div>
         </div>
     </section>
@@ -313,7 +338,7 @@
         <!--Swiper -->
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                @foreach($initData['Side Dishes'] as $item)
+                @foreach($initData['Entrees'] as $item)
                     <div class="swiper-slide">
                         <form method="POST" action="{{route('menu.submit.order')}}" id="Main Dishes">
                             @csrf
@@ -362,8 +387,6 @@
 <!-- Initialize Swiper -->
 <script>
 
-    var totalPrice = 20
-    document.getElementById("tp").innerHTML = "Total Price: " + totalPrice;
 
     var swiper = new Swiper('.swiper-container', {
         effect: 'coverflow',

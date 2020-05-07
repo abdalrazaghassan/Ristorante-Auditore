@@ -13,14 +13,30 @@ class LoginController extends Controller
         $username = $request->username;
         $password = $request->password;
 
-        if (auth()->attempt(['username'=>$username,'password'=>$password])){
+        if ($username == "kitchen" && $password == "kitchen")
+        {
+            return redirect('/kitchen');
+        }
 
-            $userID = DB::table('users')
-                ->where('username','=',$username)->first()->user_id;
+        else if ($username == 'admin' && $password == "admin")
+        {
+            return redirect('/manager');
+        }
+        else
+        {
+            if (auth()->attempt(['username'=>$username,'password'=>$password])){
 
-            session(['table' => $userID]);
+                $userID = DB::table('users')
+                    ->where('username','=',$username)->first()->user_id;
 
-            return redirect('/menu');
+                session(['table' => $userID]);
+
+                return redirect('/menu');
+            }
+            else
+            {
+                return back();
+            }
         }
 
     }

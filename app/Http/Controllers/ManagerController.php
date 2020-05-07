@@ -26,6 +26,19 @@ class ManagerController extends Controller
             $item->name = $request->item_name;
             $item->cat  = $request->cats;
             $item->bio  = $request->item_bio;
+            if ($request->hasFile('item_pic'))
+            {
+                $imgWithExtentin = $request->file('item_pic')->getClientOriginalName();
+                $fileName = pathinfo($imgWithExtentin,PATHINFO_FILENAME);
+                $extetion = $request->file('item_pic')->getClientOriginalExtension();
+                $fileNameStore = $fileName.'_'.time().'.'.$extetion;
+                $path = $request->file('item_pic')->move(base_path().'public/Images',$fileNameStore);
+            }
+            else
+            {
+                $fileNameStore = "no Image"."jpg";
+            }
+            $item->item_img = $fileNameStore;
             $item->save();
 
      return redirect('/manager')->with('InetialData' , $this->initData());

@@ -44,13 +44,10 @@ class MenuController extends Controller
 
 
        return redirect('/menu')->with('initData' , $this->initData());
-
-//       return $request;
     }
 
     public function addNotes($id)
     {
-
         $item = DB::table('Items')->where('id' , '=' , $id)->get();
 
         return "<h1>$item</h1>";
@@ -58,7 +55,6 @@ class MenuController extends Controller
 
     public function removeOrderFromCart($cartOrder_id)
     {
-
         DB::table('Carts')->where('cartOrder_id','=',$cartOrder_id)->delete();
 
         return redirect('/menu')->with('initData' , $this->initData());
@@ -102,22 +98,16 @@ class MenuController extends Controller
             $singleOrder->customize =  $order->customize;
             $singleOrder->user_id =  $order->user_id;
             $singleOrder->save();
-//            DB::table('orders')->insert(
-//                [
-//                 'item_id'  => $order->item_id,
-//                 'price_size_id' => $order->price_size_id,
-//                 'quantity'      => $order->quantity,
-//                 'customize'     => $order->customize,
-//                 'created_at'    => \Carbon\Carbon::now()->toDateTimeString(),
-//                 'updated_at'    => \Carbon\Carbon::now()->toDateTimeString(),
-//                 'user_id ' => $order->user_id,
-//                ]
-//            );
         }
 
         $this->clearCarts();
 
         return redirect('/menu')->with('initData' , $this->initData());
+    }
+
+    public function submitOffer(Request $request)
+    {
+        return $request;
     }
 
 }

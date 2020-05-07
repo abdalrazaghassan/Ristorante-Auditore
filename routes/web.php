@@ -52,7 +52,6 @@ Route::prefix('/manager')->group(function () {
     Route::post('/addOffers' , 'ManagerController@addOffers')->name('submit.offer');
 
     Route::get('/removeOffer/{id}','ManagerController@removeOffer');
-
 });
 
 Route::prefix('kitchen')->group(function (){
@@ -78,7 +77,11 @@ Route::prefix('menu')->group(function (){
     Route::get('/removeOrderFromCarts/{cartOrder_id}','MenuController@removeOrderFromCart');
 
     Route::post('/menuConfirmOrder','MenuController@ConfirmOrderAndTransfer')->name('menu.confirm.transferCarts');
+
+    Route::post('/menuSubmitOffer','MenuController@submitOffer')->name('menu.submit.offer');
+
 });
+
 
 
 
