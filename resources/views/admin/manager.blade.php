@@ -411,13 +411,14 @@
             <tbody>
                 @foreach($InetialData['OrderHistory'] as $Orders)
                     <tr>
-                         <th>{{$Orders->table_number}}</th>
+                        <th>{{$Orders->table_name}}</th>
                          <th>{{$Orders->name}}</th>
+                         <th>{{$Orders->size}}</th>
                          <th>{{$Orders->quantity}}</th>
+                         <th>{{$Orders->price}}</th>
                          <th>{{$Orders->created_at}}</th>
                     <tr>
                 @endforeach
-            </tr>
             </tbody>
 
         </table>

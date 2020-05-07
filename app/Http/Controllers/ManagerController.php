@@ -135,12 +135,11 @@ class ManagerController extends Controller
     private function retriveOrdersFromWareHouseOrder()
     {
 
-        return DB::table('OrdersHistory')
-            ->join('Items', 'Items.id', '=', 'OrdersHistory.item_id')
-            ->join('users', 'users.user_id', '=', 'OrdersHistory.user_id')
-            ->join('SizeItem','SizeItem.item_id','=','Items.id')
-            ->select('Items.*','OrdersHistory.*','users.name as table_number')
-            ->get();
+      return  DB::select("SELECT OrdersHistory.* , SizeItem.* , Items.* , users.name as table_name 
+        FROM `OrdersHistory` JOIN Items ON Items.id = OrdersHistory.item_id 
+        JOIN users ON users.user_id = OrdersHistory.user_id 
+        JOIN SizeItem ON SizeItem.price_size_id = OrdersHistory.id_price_size "
+      );
     }
 
     private function getTotalProfitOfAllOrder()
@@ -148,7 +147,7 @@ class ManagerController extends Controller
         return DB::table('OrdersHistory')
             ->join('Items', 'Items.id', '=', 'OrdersHistory.item_id')
             ->join('users', 'users.user_id', '=', 'OrdersHistory.user_id')
-            ->join('SizeItem' , 'SizeItem.item_id' , '=' , 'OrdersHistory.item_id')
+            ->join('SizeItem' , 'SizeItem.price_size_id' , '=' , 'OrdersHistory.id_price_size')
             ->select('Items.*','OrdersHistory.*', 'SizeItem.*' , 'users.name as table_number')->orderBy('created_at')
             ->sum('SizeItem.price');
     }
