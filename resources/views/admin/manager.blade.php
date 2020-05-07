@@ -52,16 +52,14 @@
 
 <body>
 <nav id="manager-navbar" class=Orders History !"navbar navbar-dark bg-dark" style="background-color: #183b8c !important;">
-    <a class="navbar-brand mx-auto" href="manager.html">Ristorante Auditore - Manager</a>
+    <a class="navbar-brand mx-auto" href="{{url('/supplier')}}">Add delete Supplier</a>
+    <a class="navbar-brand mx-auto" href="{{url('/kitchen')}}">Kitchen Dashboard</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav align-items-center">
 
-            <a class="nav-item nav-link" href="{{url('manager/addDeleteSupplier')}}">Modifiy Suppliers</a>
-            <a class="nav-item nav-link" href="manager-ing.html">Wanted Ingrediant</a>
-            <a class="nav-item nav-link" href="manager-oh.html">Orders History</a>
         </div>
     </div>
 </nav>
@@ -364,15 +362,15 @@
                 @csrf
                 @for($i = 0 ; $i < count($InetialData['Ingrediant']) ; $i++)
                     <tr>
-                        <td><input type="text" name="ingrediant_name" value="{{$InetialData['Ingrediant'][$i]->name}}"></td>
+                        <td><input type="text" name="ingrediant_name" value="{{$InetialData['Ingrediant'][$i]->name}}""></td>
                         <td>
-                            <input type="number" name="amountIngrediant" min="0" max="100" value="{{$InetialData['Ingrediant'][$i]->quantity}}" step="5"> KG
+                            <input type="number" name="amountIngrediant" style="width: 60px;" min="0" max="100" value="{{$InetialData['Ingrediant'][$i]->quantity}}" step="5"> KG
                         </td>
                         <td>
                             <select class="form-control">
-                                @for($j = 0 ; $j < 10; $j++)
-                                    <option>{{$j}}</option>
-                                @endfor
+                                @foreach($InetialData['suppliers'] as $supplier)
+                                    <option>{{$supplier->name}}</option>
+                                @endforeach
                             </select>
                         </td>
                         <td>

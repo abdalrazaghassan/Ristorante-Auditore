@@ -34,9 +34,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav align-items-center">
-            <a class="nav-item nav-link" href="manager.html">Main page Manager</a>
-            <a class="nav-item nav-link" href="manager-ing.html">Wanted Ingrediant</a>
-            <a class="nav-item nav-link" href="manager-oh.html">Orders History</a>
+            <a class="nav-item nav-link" href="{{url('/manager')}}">Main page Manager</a>
         </div>
     </div>
 </nav>

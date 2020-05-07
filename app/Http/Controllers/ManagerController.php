@@ -69,6 +69,7 @@ class ManagerController extends Controller
             'total_profit' => number_format($this->getTotalProfitOfAllOrder() , 2),
             'sizePriceItem' => $this->getItemsWithSizeAndPrice(),
             'getAllOffers' => $this->getAllOffers(),
+            'suppliers' => $this->gettAllSuppliers(),
         );
 
         return $InetialData;
@@ -116,7 +117,7 @@ class ManagerController extends Controller
 
     public function deleteTable(Request $request){
 
-        DB::table('users')->where('id', '=',$request->table)->delete();
+        DB::table('users')->where('user_id', '=',$request->table)->delete();
 
         return view('admin/manager')->with('InetialData' , $this->initData());
 
@@ -190,6 +191,11 @@ class ManagerController extends Controller
                     $join->on('SizeItem.item_id','=','Offers.id_item')
                          ->on('SizeItem.size','=','Offers.size');
                 })->get();
+    }
+
+    private function gettAllSuppliers()
+    {
+        return DB::table('suppliers')->get();
     }
 
     public function addTable(Request $request)

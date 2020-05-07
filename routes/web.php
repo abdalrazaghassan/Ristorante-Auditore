@@ -82,6 +82,19 @@ Route::prefix('menu')->group(function (){
 
 });
 
+Route::prefix('/supplier')->group(function (){
+
+    Route::get('/','SupplierController@Dashboard');
+
+    Route::post('/addSupplier','SupplierController@addSupplier')->name('addSupplier');
+
+    Route::post('/deleteSupplier','SupplierController@deleteSupplier')->name('deleteSupplier');
+
+
+});
+
+
+
 
 
 
