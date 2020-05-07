@@ -249,7 +249,7 @@
 
     <hr class="m-0">
 
-    <section class=" align-items-center" id="AddIngrediant">
+    <section class=" align-items-center" style="display: none" id="AddIngrediant">
         <div class="w-100">
             <div class="container">
                 <div class="row justify-content-center">
@@ -291,9 +291,9 @@
 
     <hr class="m-0">
 
-    <section class="p-3 p-lg-5 d-flex align-items-center" id="DeleteIngrediant">
+    <section class="p-3 p-lg-5 d-flex align-items-center"   id="DeleteIngrediant" >
         <div class="w-100">
-            <div class="container">
+            <div class="container" style="display: none">
                         <h2>Delete Offers</h2>
                         <table class="table">
                         <thead class="thead-dark">

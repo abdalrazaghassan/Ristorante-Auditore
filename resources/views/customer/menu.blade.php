@@ -201,7 +201,7 @@
                                     <form method="POST" action="{{route('menu.submit.order')}}" id="Main Dishes">
                                         @csrf
                                         <div class="card" style="width: 18rem;">
-                                            <img src="{{asset('img/testPIC.jpg')}}" class="card-img-top">
+                                            <img src="/storage/Images/{{$item->item_img}}" height="150px" class="card-img-top">
                                             <div class="card-body" style="align-items: center;">
                                                 <p class="card-text">{{$item->name}}</p>
                                                 <input type="text" name="id_order" value="{{$item->id}}" hidden>

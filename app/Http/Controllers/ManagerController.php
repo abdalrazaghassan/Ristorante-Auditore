@@ -32,7 +32,7 @@ class ManagerController extends Controller
                 $fileName = pathinfo($imgWithExtentin,PATHINFO_FILENAME);
                 $extetion = $request->file('item_pic')->getClientOriginalExtension();
                 $fileNameStore = $fileName.'_'.time().'.'.$extetion;
-                $path = $request->file('item_pic')->move(base_path().'public/Images',$fileNameStore);
+                $path = $request->file('item_pic')->storeAs('public/Images',$fileNameStore);
             }
             else
             {
